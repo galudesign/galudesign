@@ -11,27 +11,47 @@
     width: 100%;
     height: 100%;
     background: #f2f2f2;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
-    min-height: 100vh;
     overflow: hidden;
     font-family: 'Courier New', monospace;
     user-select: none;
-    padding-bottom: 40px;
   }
 
+  .nav {
+    position: fixed;
+    top: 40px;
+    left: 0;
+    right: 0;
+    display: flex;
+    gap: 36px;
+    justify-content: center;
+    list-style: none;
+    z-index: 100;
+  }
+  .nav a {
+    font-family: 'Literata', serif;
+    font-size: 16px;
+    font-weight: 300;
+    letter-spacing: 0.05em;
+    color: #0a0a0a;
+    text-decoration: none;
+    opacity: 0.3;
+    transition: opacity 0.2s;
+  }
+  .nav a:hover { opacity: 0.8; }
+  .nav a.active { opacity: 1; }
+
   .coverflow {
-    position: relative;
+    position: fixed;
+    top: 0;
+    left: 0;
     width: 100%;
-    height: 640px;
-    margin-top: 40px;
+    height: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
     perspective: 2800px;
     perspective-origin: 50% 50%;
+    overflow: hidden;
   }
 
   .card-wrapper {
@@ -69,10 +89,6 @@
     object-fit: cover;
     display: block;
   }
-  .card-wrapper.pixelated .card-face img {
-    image-rendering: pixelated;
-    image-rendering: crisp-edges;
-  }
 
   .card-face.back {
     transform: rotateY(-180deg);
@@ -82,77 +98,34 @@
     transform: rotateY(-180deg);
   }
 
-  .bottom-group { display: flex; flex-direction: column; align-items: center; gap: 16px; padding: 46px 0 32px; }
+  .bottom-group {
+    position: fixed;
+    bottom: 40px;
+    left: 0;
+    right: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    z-index: 100;
+  }
 
   .email-link {
-    margin-top: 28px;
-    font-size: 16px;
-    color: #000000;
-    letter-spacing: 0.15em;
+    font-family: 'Literata', Georgia, serif;
+    font-size: 13px;
+    font-weight: 400;
+    color: #6b6b6b;
+    letter-spacing: 0.1em;
     text-decoration: none;
-    opacity: 0.35;
-    transition: opacity 0.2s ease;
-    white-space: nowrap;
+    transition: color 0.2s;
   }
-  .email-link:hover { opacity: 1; }
+  .email-link:hover { color: #0a0a0a; }
 
   .counter {
-    margin-top: 30px;
     font-size: 11px;
     color: rgba(0,0,0,0.25);
     letter-spacing: 0.2em;
   }
-  
-  }
-  
-  }
-  .nav {
-    position: fixed;
-    top: 40px;
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    gap: 36px;
-    list-style: none;
-    z-index: 200;
-    white-space: nowrap;
-  }
-  .nav a {
-    font-family: 'Literata', serif;
-    font-size: 16px;
-    font-weight: 300;
-    letter-spacing: 0.05em;
-    color: #0a0a0a;
-    text-decoration: none;
-    opacity: 0.3;
-    transition: opacity 0.2s;
-  }
-  .nav a:hover { opacity: 0.8; }
-  .nav a.active { opacity: 1; }
-
-  .nav {
-    position: fixed;
-    top: 40px;
-    left: 0;
-    right: 0;
-    display: flex;
-    gap: 36px;
-    justify-content: center;
-    list-style: none;
-    z-index: 200;
-  }
-  .nav a {
-    font-family: 'Literata', serif;
-    font-size: 16px;
-    font-weight: 300;
-    letter-spacing: 0.05em;
-    color: #0a0a0a;
-    text-decoration: none;
-    opacity: 0.3;
-    transition: opacity 0.2s;
-  }
-  .nav a:hover { opacity: 0.8; }
-  .nav a.active { opacity: 1; }
 </style>
 <link href="https://fonts.googleapis.com/css2?family=Literata:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
 </head>
@@ -163,7 +136,6 @@
   <a href="problem.html">Problem</a>
   <a href="person.html">Person</a>
 </nav>
-<div style="height:120px;flex-shrink:0;width:100%;"></div>
 <div class="coverflow" id="coverflow"></div>
 <div class="bottom-group"><a class="email-link" href="mailto:andrew@galudesign.com">andrew@galudesign.com</a>
 <div class="counter" id="counter"></div></div>
