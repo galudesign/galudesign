@@ -56,8 +56,8 @@
 
   .card-wrapper {
     position: absolute;
-    width: min(437px, 42vw, 55vh);
-    height: min(613px, 59vw, 77vh);
+    width: min(437px, 80vw, 55vh);
+    height: min(613px, 112vw, 77vh);
     cursor: pointer;
     transition: transform 0.55s cubic-bezier(0.4, 0.2, 0.2, 1),
                 opacity 0.55s ease,
@@ -80,7 +80,7 @@
     -webkit-backface-visibility: hidden;
     overflow: hidden;
     background: #ffffff;
-    border-radius: 36px;
+    border-radius: clamp(16px, 4vw, 36px);
   }
 
   .card-face img {
@@ -125,6 +125,12 @@
     font-size: 11px;
     color: rgba(0,0,0,0.25);
     letter-spacing: 0.2em;
+  }
+
+  @media (max-width: 600px) {
+    .nav { gap: 20px; top: 24px; }
+    .nav a { font-size: 14px; }
+    .bottom-group { bottom: 24px; }
   }
 </style>
 <link href="https://fonts.googleapis.com/css2?family=Literata:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
