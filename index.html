@@ -14,10 +14,12 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
+    min-height: 100vh;
     overflow: hidden;
     font-family: 'Courier New', monospace;
     user-select: none;
+    padding-bottom: 40px;
   }
 
   .coverflow {
@@ -34,8 +36,8 @@
 
   .card-wrapper {
     position: absolute;
-    width: 437px;
-    height: 613px;
+    width: min(437px, 42vw, 55vh);
+    height: min(613px, 59vw, 77vh);
     cursor: pointer;
     transition: transform 0.55s cubic-bezier(0.4, 0.2, 0.2, 1),
                 opacity 0.55s ease,
@@ -76,6 +78,8 @@
     transform: rotateY(-180deg);
   }
 
+  .bottom-group { display: flex; flex-direction: column; align-items: center; gap: 16px; padding: 46px 0 32px; }
+
   .email-link {
     margin-top: 28px;
     font-size: 16px;
@@ -107,7 +111,7 @@
     justify-content: center;
     padding: 40px 0 64px;
     position: relative;
-    z-index: 100;
+    z-index: 10;
   }
   .site-nav a {
     font-family: 'Literata', serif;
@@ -129,8 +133,8 @@
 </nav>
 
 <div class="coverflow" id="coverflow"></div>
-<a class="email-link" href="mailto:andrew@galudesign.com">andrew@galudesign.com</a>
-<div class="counter" id="counter"></div>
+<div class="bottom-group"><a class="email-link" href="mailto:andrew@galudesign.com">andrew@galudesign.com</a>
+<div class="counter" id="counter"></div></div>
 
 <script>
   const cards = [
