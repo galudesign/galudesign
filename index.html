@@ -125,23 +125,41 @@
   }
   .nav a:hover { opacity: 0.8; }
   .nav a.active { opacity: 1; }
+
+  .nav {
+    position: fixed;
+    top: 40px;
+    left: 0;
+    right: 0;
+    display: flex;
+    gap: 36px;
+    justify-content: center;
+    list-style: none;
+    z-index: 200;
+  }
+  .nav a {
+    font-family: 'Literata', serif;
+    font-size: 16px;
+    font-weight: 300;
+    letter-spacing: 0.05em;
+    color: #0a0a0a;
+    text-decoration: none;
+    opacity: 0.3;
+    transition: opacity 0.2s;
+  }
+  .nav a:hover { opacity: 0.8; }
+  .nav a.active { opacity: 1; }
 </style>
+<link href="https://fonts.googleapis.com/css2?family=Literata:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
 </head>
 <body>
 
-<link href="https://fonts.googleapis.com/css2?family=Literata:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
-<style>
-  
-  
-  
-  
-</style>
 <nav class="nav">
   <a href="index.html" class="active">Work</a>
   <a href="problem.html">Problem</a>
   <a href="person.html">Person</a>
 </nav>
-
+<div style="height:120px;flex-shrink:0;width:100%;"></div>
 <div class="coverflow" id="coverflow"></div>
 <div class="bottom-group"><a class="email-link" href="mailto:andrew@galudesign.com">andrew@galudesign.com</a>
 <div class="counter" id="counter"></div></div>
