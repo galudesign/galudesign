@@ -11,25 +11,17 @@
   html { font-size: 16px; -webkit-font-smoothing: antialiased; }
   body { background: #f2f2f2; color: var(--ink); font-family: 'Literata', Georgia, serif; font-weight: 400; line-height: 1.75; padding: 120px 24px 120px; }
   .wrap { max-width: var(--max); margin: 0 auto; }
-
-  
-  
-  
-  
-
-  .body-text { font-size: 16px; line-height: 1.85; margin-bottom: 32px; }
-
+  .header { margin-bottom: 56px; }
+  .header-title { font-size: clamp(22px, 3.2vw, 30px); font-weight: 300; line-height: 1.3; font-style: italic; }
+  .body-text { font-size: 16px; line-height: 1.85; margin-bottom: 28px; }
+  .section { margin-top: 48px; }
+  .section-title { font-size: 11px; font-weight: 400; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); margin-bottom: 20px; }
+  .pull { margin: 48px 0; padding-left: 24px; border-left: 1.5px solid var(--ink); }
+  .pull p { font-size: 20px; font-weight: 300; font-style: italic; line-height: 1.55; }
   .signature { margin-top: 64px; font-size: 14px; font-style: italic; color: var(--muted); }
-
   .footer { margin-top: 80px; }
   .footer-email { font-size: 13px; color: var(--muted); text-decoration: none; letter-spacing: 0.1em; transition: color 0.2s; }
   .footer-email:hover { color: var(--ink); }
-  
-  }
-  
-  }
-  
-  
   .nav {
     position: fixed;
     top: 40px;
@@ -37,9 +29,8 @@
     right: 0;
     display: flex;
     gap: 36px;
-    list-style: none;
     justify-content: center;
-    z-index: 200;
+    list-style: none;
   }
   .nav a {
     font-family: 'Literata', serif;
@@ -61,8 +52,8 @@
   <a href="problem.html">Problem</a>
   <a href="person.html" class="active">Person</a>
 </nav>
-
 <div class="wrap">
+
   <p class="body-text">I'm a Bay Area native and father of two, shaped by years working inside tech where design, communication, and chaos often overlap. Presentation design became my way of bringing order to that mix and a lens for understanding people, systems, and how ideas take hold.</p>
 
   <p class="body-text">I've spent my career behind the scenes of some of tech's biggest moments, helping teams find clarity when the pressure is high. What I've learned is that good design isn't about what's on the screen, it's about how people feel when everything finally moves in alignment.</p>
@@ -74,6 +65,7 @@
   <footer class="footer">
     <a href="mailto:andrew@galudesign.com" class="footer-email">andrew@galudesign.com</a>
   </footer>
+
 </div>
 </body>
 </html>
