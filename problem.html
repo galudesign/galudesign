@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Problem</title>
+<link href="https://fonts.googleapis.com/css2?family=Literata:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root { --ink: #0a0a0a; --muted: #6b6b6b; --max: 680px; }
+  html { font-size: 16px; -webkit-font-smoothing: antialiased; }
+  body { background: #e8e8e8; color: var(--ink); font-family: 'Literata', Georgia, serif; font-weight: 400; line-height: 1.75; padding: 0 24px 120px; }
+  .wrap { max-width: var(--max); margin: 0 auto; }
+
+  .nav { display: flex; gap: 36px; list-style: none; justify-content: center; padding: 40px 0 64px; }
+  .nav a { font-family: 'Literata', serif; font-size: 16px; font-weight: 300; letter-spacing: 0.05em; color: var(--ink); text-decoration: none; opacity: 0.3; transition: opacity 0.2s; }
+  .nav a:hover { opacity: 0.8; }
+  .nav a.active { opacity: 1; }
+
+  .header { margin-bottom: 56px; }
+  .header-title { font-size: clamp(22px, 3.2vw, 30px); font-weight: 300; line-height: 1.3; font-style: italic; }
+
+  .body-text { font-size: 16px; line-height: 1.85; margin-bottom: 28px; }
+
+  .section { margin-top: 48px; }
+  .section-title { font-size: 11px; font-weight: 400; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); margin-bottom: 20px; }
+
+  .pull { margin: 48px 0; padding-left: 24px; border-left: 1.5px solid var(--ink); }
+  .pull p { font-size: 20px; font-weight: 300; font-style: italic; line-height: 1.55; }
+
+  .footer { margin-top: 100px; }
+  .footer-email { font-size: 13px; color: var(--muted); text-decoration: none; letter-spacing: 0.1em; transition: color 0.2s; }
+  .footer-email:hover { color: var(--ink); }
+</style>
+</head>
+<body>
+<nav class="nav">
+  <a href="index.html">Work</a>
+  <a href="problem.html" class="active">Problem</a>
+  <a href="person.html">Person</a>
+</nav>
+
+<div class="wrap">
+  <header class="header">
+    <h1 class="header-title">Presentations are a brand system in motion.</h1>
+  </header>
+
+  <p class="body-text">Most companies accept presentations as fire drills. Requests land last minute, someone dusts off an old template, and something ships. Creative teams can add polish but rarely have the capacity or niche expertise to build a system that scales. Agencies are costly, freelancers lack context, and the talent pool for true specialists is microscopic compared to other design fields.</p>
+  <p class="body-text">The result is brand drift: small inconsistencies that pile up into franken-decks, weakened credibility, and eroded trust.</p>
+
+  <div class="section">
+    <div class="section-title">Chaos compounds</div>
+    <p class="body-text">Growth accelerates the problem. More products. More markets. More decks. Volume rises faster than headcount ever can.</p>
+    <p class="body-text">Control comes from a governed system with clear ownership inside the brand team. A system with defined processes, review paths, rehearsals, and lock dates. And it starts with the most used brand artifact your company owns: the presentation template.</p>
+  </div>
+
+  <div class="section">
+    <div class="section-title">A role redefined</div>
+    <p class="body-text">Titles aside, this is what a presentation designer really does. They are not just a visual translator. They connect brand, message, and moment. They reduce friction. They pull the right people into the right room at the right time. Without the role defined, the function drowns in requests and never builds anything that lasts.</p>
+  </div>
+
+  <div class="section">
+    <div class="section-title">A team that scales</div>
+    <p class="body-text">No single person can carry the full load. The most effective teams dedicate resources to a few key workstreams: a brand-level designer who owns narrative consistency and stewards the template, a GTM-minded designer who knows sales cycles and translates complex value into clear story, a technical and event specialist who architects templates and partners on logistics to keep the show stable, and a production operator who handles volume, formatting, and live support without quality slipping.</p>
+    <p class="body-text">With this mix, intake chaos turns into a pipeline. Work goes to the right hands. Approvals land on time. Every deck, from QBR to keynote, flows from the same foundation and stays in brand alignment.</p>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Identifying the gap</div>
+    <p class="body-text">You can tell a company lacks the foundation when leaders build their own slides, events depend on heroics, sales decks drift by region, templates change by team, and keynote rewrites happen on the flight over.</p>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Getting it right</div>
+    <p class="body-text">With a system in place, the shift is immediate. Teams stop reinventing. Executives get their time back. Designers stop firefighting. Tools and training make self-service possible. High-stakes events feel rehearsed instead of risky. Presentations stop being a liability and become a lever.</p>
+  </div>
+
+  <div class="section">
+    <div class="section-title">How I can help</div>
+    <p class="body-text">I saw this firsthand at OpenAI during hypergrowth. Every team needed decks for investors, regulators, and global keynotes, but there was no shared system. We ran audits, built stronger templates, developed workflows, and reinforced brand integrity. The unlock was not prettier slides. It was the system.</p>
+    <div class="pull">
+      <p>Your next keynote does not need to be a scramble. It can be proof your company is ready for the stage it's on.</p>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <a href="mailto:andrew@galudesign.com" class="footer-email">andrew@galudesign.com</a>
+  </footer>
+</div>
+</body>
+</html>

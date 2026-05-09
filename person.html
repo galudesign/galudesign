@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Person</title>
+<link href="https://fonts.googleapis.com/css2?family=Literata:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root { --ink: #0a0a0a; --muted: #6b6b6b; --max: 680px; }
+  html { font-size: 16px; -webkit-font-smoothing: antialiased; }
+  body { background: #e8e8e8; color: var(--ink); font-family: 'Literata', Georgia, serif; font-weight: 400; line-height: 1.75; padding: 0 24px 120px; }
+  .wrap { max-width: var(--max); margin: 0 auto; }
+
+  .nav { display: flex; gap: 36px; list-style: none; justify-content: center; padding: 40px 0 64px; }
+  .nav a { font-family: 'Literata', serif; font-size: 16px; font-weight: 300; letter-spacing: 0.05em; color: var(--ink); text-decoration: none; opacity: 0.3; transition: opacity 0.2s; }
+  .nav a:hover { opacity: 0.8; }
+  .nav a.active { opacity: 1; }
+
+  .body-text { font-size: 16px; line-height: 1.85; margin-bottom: 32px; }
+
+  .signature { margin-top: 64px; font-size: 14px; font-style: italic; color: var(--muted); }
+
+  .footer { margin-top: 80px; }
+  .footer-email { font-size: 13px; color: var(--muted); text-decoration: none; letter-spacing: 0.1em; transition: color 0.2s; }
+  .footer-email:hover { color: var(--ink); }
+</style>
+</head>
+<body>
+<nav class="nav">
+  <a href="index.html">Work</a>
+  <a href="problem.html">Problem</a>
+  <a href="person.html" class="active">Person</a>
+</nav>
+
+<div class="wrap">
+  <p class="body-text">I'm a Bay Area native and father of two, shaped by years working inside tech where design, communication, and chaos often overlap. Presentation design became my way of bringing order to that mix and a lens for understanding people, systems, and how ideas take hold.</p>
+
+  <p class="body-text">I've spent my career behind the scenes of some of tech's biggest moments, helping teams find clarity when the pressure is high. What I've learned is that good design isn't about what's on the screen, it's about how people feel when everything finally moves in alignment.</p>
+
+  <p class="body-text">These days, I focus less on production and more on building the systems that make clear communication possible again and again.</p>
+
+  <div class="signature">Andrew Galu</div>
+
+  <footer class="footer">
+    <a href="mailto:andrew@galudesign.com" class="footer-email">andrew@galudesign.com</a>
+  </footer>
+</div>
+</body>
+</html>
