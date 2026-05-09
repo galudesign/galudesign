@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Galu Studio</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --card-w: 63mm;
+    --card-h: 88mm;
+    --card-r: 4mm;
+    --gold: #C9A96E;
+    --ink: #1a1a1a;
+    --paper: #FDFAF5;
+    --muted: #888880;
+  }
+
+  html, body {
+    width: 100%;
+    height: 100%;
+    background: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'DM Mono', monospace;
+    overflow: hidden;
+  }
+
+  .scene {
+    width: var(--card-w);
+    height: var(--card-h);
+    perspective: 900px;
+    cursor: pointer;
+    animation: rise 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+
+  @keyframes rise {
+    from { opacity: 0; transform: translateY(12px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .card {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 0.75s cubic-bezier(0.4, 0.2, 0.2, 1);
+    border-radius: var(--card-r);
+  }
+
+  .scene:hover .card,
+  .scene.flipped .card {
+    transform: rotateY(-180deg);
+  }
+
+  .face {
+    position: absolute;
+    inset: 0;
+    border-radius: var(--card-r);
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    overflow: hidden;
+  }
+
+  /* FRONT */
+  .front {
+    background: var(--paper);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 5mm 5mm 4mm;
+    border: 1px solid rgba(201,169,110,0.25);
+  }
+
+  .front-border {
+    position: absolute;
+    inset: 2.5mm;
+    border: 0.5px solid rgba(201,169,110,0.35);
+    border-radius: calc(var(--card-r) - 1mm);
+    pointer-events: none;
+  }
+
+  /* top strip: case no + industry */
+  .front-top {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 3mm;
+    padding: 0 1mm;
+    position: relative;
+    z-index: 1;
+  }
+
+  .front-case {
+    font-size: 6px;
+    color: var(--gold);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    line-height: 1.4;
+  }
+
+  .front-industry {
+    font-size: 6px;
+    color: var(--muted);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    text-align: right;
+    line-height: 1.4;
+  }
+
+  /* logo area */
+  .front-logo-wrap {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+  }
+
+  .front-logo {
+    max-width: 36mm;
+    max-height: 18mm;
+    object-fit: contain;
+    filter: grayscale(100%);
+    opacity: 0.75;
+  }
+
+  .front-logo-placeholder {
+    font-family: 'Playfair Display', serif;
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--ink);
+    letter-spacing: 0.04em;
+    opacity: 0.8;
+    text-align: center;
+  }
+
+  .front-rule {
+    width: 100%;
+    height: 0.5px;
+    background: linear-gradient(90deg, transparent, rgba(201,169,110,0.5), transparent);
+    margin: 3mm 0 2.5mm;
+  }
+
+  /* relationship statement */
+  .front-statement {
+    font-family: 'Playfair Display', serif;
+    font-size: 8px;
+    font-style: italic;
+    color: var(--ink);
+    text-align: center;
+    line-height: 1.55;
+    padding: 0 1mm;
+    opacity: 0.85;
+  }
+
+  /* bottom strip: timespan + era */
+  .front-bottom {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-top: 3mm;
+    padding: 0 1mm;
+  }
+
+  .front-timespan {
+    font-size: 6px;
+    color: var(--muted);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .front-era {
+    font-size: 6px;
+    color: var(--muted);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .flip-hint {
+    position: absolute;
+    bottom: 5mm;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 5.5px;
+    color: rgba(136,136,128,0.4);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  /* BACK */
+  .back {
+    background: var(--paper);
+    transform: rotateY(-180deg);
+    display: flex;
+    flex-direction: column;
+    padding: 5mm;
+    border: 1px solid rgba(201,169,110,0.25);
+    gap: 0;
+  }
+
+  .back-border {
+    position: absolute;
+    inset: 2.5mm;
+    border: 0.5px solid rgba(201,169,110,0.35);
+    border-radius: calc(var(--card-r) - 1mm);
+    pointer-events: none;
+  }
+
+  .back-label {
+    font-size: 6px;
+    color: var(--gold);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 1.5mm;
+  }
+
+  .back-rule {
+    width: 100%;
+    height: 0.5px;
+    background: linear-gradient(90deg, transparent, rgba(201,169,110,0.45), transparent);
+    margin-bottom: 2mm;
+  }
+
+  .back-quote {
+    font-family: 'Playfair Display', serif;
+    font-size: 7.5px;
+    font-style: italic;
+    color: var(--ink);
+    line-height: 1.55;
+    margin-bottom: 1mm;
+  }
+
+  .back-attribution {
+    font-size: 6px;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+    margin-bottom: 3mm;
+  }
+
+  .back-deliverables {
+    list-style: none;
+    margin-bottom: 3mm;
+  }
+
+  .back-deliverables li {
+    font-size: 6px;
+    color: var(--ink);
+    letter-spacing: 0.08em;
+    line-height: 1.9;
+    padding-left: 4px;
+    position: relative;
+  }
+
+  .back-deliverables li::before {
+    content: '—';
+    color: var(--gold);
+    position: absolute;
+    left: -6px;
+    font-size: 6px;
+  }
+
+  .back-metric {
+    font-size: 6.5px;
+    color: var(--ink);
+    letter-spacing: 0.08em;
+    line-height: 1.5;
+    border-left: 0.5px solid var(--gold);
+    padding-left: 3mm;
+    margin-bottom: 3mm;
+    font-family: 'DM Mono', monospace;
+  }
+
+  .back-partners-label {
+    font-size: 5.5px;
+    color: var(--gold);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 1mm;
+  }
+
+  .back-partners {
+    font-size: 6px;
+    color: var(--muted);
+    letter-spacing: 0.08em;
+    line-height: 1.7;
+  }
+
+  .back-footer {
+    margin-top: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    padding-top: 2mm;
+    border-top: 0.5px solid rgba(201,169,110,0.2);
+  }
+
+  .back-url {
+    font-size: 6px;
+    color: var(--gold);
+    letter-spacing: 0.1em;
+  }
+
+  .back-casenum {
+    font-size: 6px;
+    color: rgba(136,136,128,0.4);
+    letter-spacing: 0.1em;
+  }
+
+  /* NAV */
+  .nav {
+    position: fixed;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 12px;
+    opacity: 0.2;
+    transition: opacity 0.2s ease;
+    z-index: 10;
+  }
+  .nav:hover:not(:disabled) { opacity: 0.6; }
+  .nav:disabled { opacity: 0.06; cursor: default; }
+  .nav.left { left: 16px; }
+  .nav.right { right: 16px; }
+  .nav svg { width: 14px; height: 14px; display: block; }
+
+  .counter {
+    position: fixed;
+    bottom: 22px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: 'DM Mono', monospace;
+    font-size: 8px;
+    color: rgba(136,136,128,0.3);
+    letter-spacing: 0.2em;
+  }
+
+  .email-link {
+    position: fixed;
+    bottom: 42px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: 'DM Mono', monospace;
+    font-size: 8px;
+    color: var(--muted);
+    letter-spacing: 0.15em;
+    text-decoration: none;
+    opacity: 0.35;
+    transition: opacity 0.2s ease, color 0.2s ease;
+    white-space: nowrap;
+  }
+  .email-link:hover { opacity: 1; color: var(--gold); }
+</style>
+</head>
+<body>
+
+<button class="nav left" id="prev" onclick="navigate(-1)" aria-label="Previous">
+  <svg viewBox="0 0 24 24" fill="none" stroke="#1a1a1a" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+    <polyline points="15 18 9 12 15 6"></polyline>
+  </svg>
+</button>
+
+<button class="nav right" id="next" onclick="navigate(1)" aria-label="Next">
+  <svg viewBox="0 0 24 24" fill="none" stroke="#1a1a1a" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+    <polyline points="9 18 15 12 9 6"></polyline>
+  </svg>
+</button>
+
+<div class="scene" id="scene" onclick="this.classList.toggle('flipped')" title="Click to flip">
+  <div class="card">
+    <div class="face front" id="card-front"></div>
+    <div class="face back" id="card-back"></div>
+  </div>
+</div>
+
+<a class="email-link" href="mailto:andrew@galudesign.com">andrew@galudesign.com</a>
+<div class="counter" id="counter"></div>
+
+<script>
+  const cards = [
+    {
+      caseNo: 'Case No. 01',
+      industry: 'Technology',
+      logoText: 'Acme Corp',
+      statement: 'Built the presentation infrastructure behind their Series B narrative.',
+      timespan: '18 months',
+      era: '2022 — 2023',
+      quote: '"Andrew rebuilt how we think about presentations entirely. What used to take weeks now runs like a system."',
+      attribution: 'Jane Smith, VP Communications',
+      deliverables: ['Presentation system & template library', 'Executive keynote development', 'Designer onboarding process', 'Quarterly narrative framework'],
+      metric: '60% reduction in deck production time',
+      partners: 'Brand team, Executive Communications, Design Ops',
+      url: 'galu.studio',
+      num: '01 / 05'
+    },
+    {
+      caseNo: 'Case No. 02',
+      industry: 'Finance',
+      logoText: 'Meridian',
+      statement: 'Redesigned how a global firm communicates internally and externally.',
+      timespan: '12 months',
+      era: '2021 — 2022',
+      quote: '"We finally have a presentation system that reflects who we actually are."',
+      attribution: 'Mark Chen, Chief of Staff',
+      deliverables: ['Brand-aligned template suite', 'Investor deck system', 'Internal comms standards', 'Team training workshops'],
+      metric: '3 decks shipped per week at launch',
+      partners: 'Brand, Investor Relations, HR',
+      url: 'galu.studio',
+      num: '02 / 05'
+    },
+    {
+      caseNo: 'Case No. 03',
+      industry: 'Healthcare',
+      logoText: 'Vanta Health',
+      statement: 'Created a presentation language for a company explaining complex science simply.',
+      timespan: '6 months',
+      era: '2020',
+      quote: '"Our board now asks for Andrew by name."',
+      attribution: 'Sara Obi, Director of Strategy',
+      deliverables: ['Board deck system', 'Scientific narrative framework', 'Visual data standards', 'Presentation coaching'],
+      metric: 'Board approval on first submission',
+      partners: 'Medical Affairs, Strategy, Design',
+      url: 'galu.studio',
+      num: '03 / 05'
+    },
+    {
+      caseNo: 'Case No. 04',
+      industry: 'Consumer',
+      logoText: 'Parkside',
+      statement: 'Established an in-house presentation team from scratch.',
+      timespan: '9 months',
+      era: '2019 — 2020',
+      quote: '"He didn\'t just build the system. He built the team that runs it."',
+      attribution: 'Tom Reeves, Creative Director',
+      deliverables: ['Hiring criteria & process', 'Team workflow design', 'Template ecosystem', 'Brand voice for slides'],
+      metric: 'Team of 4 hired and operational in 90 days',
+      partners: 'Creative, Talent, Executive Office',
+      url: 'galu.studio',
+      num: '04 / 05'
+    },
+    {
+      caseNo: 'Case No. 05',
+      industry: 'Enterprise',
+      logoText: 'Northgate',
+      statement: 'Transformed a fragmented deck culture into a unified communication system.',
+      timespan: '24 months',
+      era: '2017 — 2019',
+      quote: '"The before and after is night and day. Every team presents with confidence now."',
+      attribution: 'Lisa Park, SVP Marketing',
+      deliverables: ['Enterprise template rollout', 'Multi-team training program', 'Presentation governance doc', 'Keynote event system'],
+      metric: 'Deployed across 6 business units',
+      partners: 'Marketing, Sales, Product, Legal',
+      url: 'galu.studio',
+      num: '05 / 05'
+    }
+  ];
+
+  let current = 0;
+
+  function renderCard(i) {
+    const c = cards[i];
+    document.getElementById('scene').classList.remove('flipped');
+
+    document.getElementById('card-front').innerHTML = `
+      <div class="front-border"></div>
+      <div class="front-top">
+        <div class="front-case">${c.caseNo}</div>
+        <div class="front-industry">${c.industry}</div>
+      </div>
+      <div class="front-logo-wrap">
+        <div class="front-logo-placeholder">${c.logoText}</div>
+      </div>
+      <div class="front-rule"></div>
+      <div class="front-statement">${c.statement}</div>
+      <div class="front-bottom">
+        <div class="front-timespan">${c.timespan}</div>
+        <div class="front-era">${c.era}</div>
+      </div>
+      <div class="flip-hint">tap to reveal</div>
+    `;
+
+    document.getElementById('card-back').innerHTML = `
+      <div class="back-border"></div>
+      <div class="back-label">Testimonial</div>
+      <div class="back-rule"></div>
+      <div class="back-quote">${c.quote}</div>
+      <div class="back-attribution">${c.attribution}</div>
+      <div class="back-label">Work</div>
+      <div class="back-rule"></div>
+      <ul class="back-deliverables">
+        ${c.deliverables.map(d => `<li>${d}</li>`).join('')}
+      </ul>
+      <div class="back-metric">${c.metric}</div>
+      <div class="back-partners-label">Partners</div>
+      <div class="back-partners">${c.partners}</div>
+      <div class="back-footer">
+        <div class="back-url">${c.url}</div>
+        <div class="back-casenum">${c.num}</div>
+      </div>
+    `;
+
+    document.getElementById('counter').textContent = `${i + 1} / ${cards.length}`;
+    document.getElementById('prev').disabled = i === 0;
+    document.getElementById('next').disabled = i === cards.length - 1;
+  }
+
+  function navigate(dir) {
+    const n = current + dir;
+    if (n < 0 || n >= cards.length) return;
+    current = n;
+    renderCard(current);
+  }
+
+  renderCard(0);
+</script>
+
+</body>
+</html>
