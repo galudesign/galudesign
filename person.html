@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-<meta charset="UTF-8">
-<link rel="icon" href="favicon.png">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Galu Design</title>
-<link href="https://fonts.googleapis.com/css2?family=Literata:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
-<style>
+ <head>
+  <meta charset="UTF-8">
+  <link rel="icon" href="favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Galu Design</title>
+ <link href="https://fonts.googleapis.com/css2?family=Literata:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
+ <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   :root { --ink: #0a0a0a; --muted: #6b6b6b; --max: 680px; }
   html { font-size: 16px; -webkit-font-smoothing: antialiased; }
@@ -24,52 +24,71 @@
   .footer-email { font-size: 13px; color: var(--muted); text-decoration: none; letter-spacing: 0.1em; transition: color 0.2s; }
   .footer-email:hover { color: var(--ink); }
   .nav {
-    display: flex;
-    gap: 36px;
-    justify-content: center;
-    list-style: none;
-    padding: 40px 0 64px;
+     display: flex;
+     gap: 36px;
+     justify-content: center;
+     list-style: none;
+     padding: 40px 0 64px;
   }
   .nav a {
-    font-family: 'Literata', serif;
-    font-size: 16px;
-    font-weight: 300;
-    letter-spacing: 0.05em;
-    color: #0a0a0a;
-    text-decoration: none;
-    opacity: 0.3;
-    transition: opacity 0.2s;
+     font-family: 'Literata', serif;
+     font-size: 16px;
+     font-weight: 300;
+     letter-spacing: 0.05em;
+     color: #0a0a0a;
+     text-decoration: none;
+     opacity: 0.3;
+     transition: opacity 0.2s;
   }
   .nav a:hover { opacity: 0.8; }
   .nav a.active { opacity: 1; }
+  .nav a.nav-course {
+     font-style: italic;
+     opacity: 1;
+     background: linear-gradient(90deg, #a855f7, #ec4899, #f97316, #eab308, #22c55e, #3b82f6, #a855f7);
+     background-size: 300% auto;
+     -webkit-background-clip: text;
+     -webkit-text-fill-color: transparent;
+     background-clip: text;
+     animation: gradientShift 4s linear infinite;
+  }
+  .nav a.nav-course:hover { opacity: 1; }
+  @keyframes gradientShift {
+     0% { background-position: 0% center; }
+     100% { background-position: 300% center; }
+  }
 
   @media (max-width: 600px) {
-    .nav { gap: 20px; top: 24px; }
-    .nav a { font-size: 14px; }
+     .nav { gap: 20px; top: 24px; }
+     .nav a { font-size: 14px; }
   }
-</style>
-</head>
-<body>
-<nav class="nav">
-  <a href="problem.html">Problem</a>
-  <a href="index.html">Proof</a>
-  <a href="person.html" class="active">Person</a>
-</nav>
-<div class="wrap">
+  </style>
+ </head>
+ <body>
+  <nav class="nav">
+     <a href="problem.html">Problem</a>a>
+     <a href="index.html">Proof</a>a>
+     <a href="person.html" class="active">Person</a>a>
+     <a href="https://galudesign.craft.me/landing" class="nav-course" target="_blank" rel="noopener">PresOS Course</a>a>
+  </nav>nav>
+  <div class="wrap">
 
-  <p class="body-text">I'm a Bay Area native and father of two, shaped by years working inside tech where design, communication, and chaos often overlap. Presentation design became my way of bringing order to that mix and a lens for understanding people, systems, and how ideas take hold.</p>
+   <p class="body-text">I'm a Bay Area native and father of two, shaped by years working inside tech where design, communication, and chaos often overlap. Presentation design became my way of bringing order to that mix and a lens for understanding people, systems, and how ideas take hold.</p>p>
 
-  <p class="body-text">I've spent my career behind the scenes of some of tech's biggest moments, helping teams find clarity when the pressure is high. What I've learned is that good design isn't about what's on the screen, it's about how people feel when everything finally moves in alignment.</p>
+   <p class="body-text">I've spent my career behind the scenes of some of tech's biggest moments, helping teams find clarity when the pressure is high. What I've learned is that good design isn't about what's on the screen, it's about how people feel when everything finally moves in alignment.</p>p>
 
-  <p class="body-text">These days, I focus less on production and more on building the systems that make clear communication possible again and again.</p>
+   <p class="body-text">These days, I focus less on production and more on building the systems that make clear communication possible again and again.</p>p>
 
-  <div class="signature">Andrew Galu</div>
+   <div class="signature">Andrew Galu</div>div>
 
-  <footer class="footer">
-    <a href="mailto:andrew@galudesign.com" class="footer-email">andrew@galudesign.com</a>
-    <a href="https://www.linkedin.com/in/andrew-galu-b79b6033/" class="footer-email" target="_blank" rel="noopener">linkedin</a>
-  </footer>
+   <footer class="footer">
+      <a href="mailto:andrew@galudesign.com" class="footer-email">andrew@galudesign.com</a>a>
+      <a href="https://www.linkedin.com/in/andrew-galu-b79b6033/" class="footer-email" target="_blank" rel="noopener">linkedin</a>a>
+   </footer>footer>
 
-</div>
-</body>
-</html>
+  </div>div>
+ </body>
+</html>html>
+ </body>
+ </style></title>
+ </head>
