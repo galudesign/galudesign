@@ -40,6 +40,21 @@
   }
   .nav a:hover { opacity: 0.8; }
   .nav a.active { opacity: 1; }
+  .nav a.nav-course {
+    font-style: italic;
+    opacity: 1;
+    background: linear-gradient(90deg, #a855f7, #ec4899, #f97316, #eab308, #22c55e, #3b82f6, #a855f7);
+    background-size: 300% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: gradientShift 4s linear infinite;
+  }
+  .nav a.nav-course:hover { opacity: 1; }
+  @keyframes gradientShift {
+    0% { background-position: 0% center; }
+    100% { background-position: 300% center; }
+  }
 
   .coverflow {
     position: fixed;
@@ -142,6 +157,8 @@
   <a href="problem.html">Problem</a>
   <a href="index.html" class="active">Proof</a>
   <a href="person.html">Person</a>
+
+  <a href="https://galudesign.craft.me/landing" class="nav-course" target="_blank" rel="noopener">PresOS Course</a>
 </nav>
 <div class="coverflow" id="coverflow"></div>
 <div class="bottom-group"><a class="email-link" href="mailto:andrew@galudesign.com">andrew@galudesign.com</a>
