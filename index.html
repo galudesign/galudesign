@@ -46,6 +46,16 @@ html {
 body {
   overflow-x: hidden;
 }
+html.drawer-open,
+html.drawer-open body {
+  overflow: hidden;
+  overscroll-behavior: none;
+  touch-action: none;
+}
+html.drawer-open .drawer-body {
+  touch-action: pan-y;
+  overscroll-behavior: contain;
+}
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
@@ -877,6 +887,11 @@ section { scroll-margin-top: calc(var(--nav-h) + 24px); }
   flex-shrink: 0;
 }
 
+.drawer-title-row {
+  min-width: 0;
+  flex: 1;
+}
+
 .drawer-company {
   font-family: var(--font-display);
   font-size: clamp(24px, 3vw, 30px);
@@ -884,6 +899,7 @@ section { scroll-margin-top: calc(var(--nav-h) + 24px); }
   letter-spacing: -0.02em;
   line-height: 1.15;
   color: #fff;
+  min-width: 0;
 }
 
 .drawer-close {
@@ -1131,7 +1147,9 @@ section { scroll-margin-top: calc(var(--nav-h) + 24px); }
     <div class="drawer-band" id="d-band"></div>
     <div class="drawer-hero" id="d-hero" aria-hidden="true"></div>
     <div class="drawer-head">
-      <div class="drawer-company" id="d-name"></div>
+      <div class="drawer-title-row">
+        <div class="drawer-company" id="d-name"></div>
+      </div>
       <button class="drawer-close" type="button" onclick="closeDrawer()" aria-label="Close">ESC ✕</button>
     </div>
     <div class="drawer-sub">
@@ -1591,13 +1609,45 @@ function openDrawer(id) {
   if (body) body.scrollTop = 0;
   const drawer = document.getElementById('drawer');
   if (drawer) drawer.scrollTop = 0;
+  currentDrawerId = id;
   document.getElementById('overlay').classList.add('open');
-  document.body.style.overflow = 'hidden';
+  lockPageScroll();
 }
+
+let currentDrawerId = null;
+let scrollLockY = 0;
+
+function lockPageScroll() {
+  scrollLockY = window.scrollY || window.pageYOffset || 0;
+  document.documentElement.classList.add('drawer-open');
+  document.body.classList.add('drawer-open');
+  document.body.style.position = 'fixed';
+  document.body.style.top = `-${scrollLockY}px`;
+  document.body.style.left = '0';
+  document.body.style.right = '0';
+  document.body.style.width = '100%';
+  document.body.style.overflow = 'hidden';
+  document.documentElement.style.overflow = 'hidden';
+}
+
+function unlockPageScroll() {
+  document.documentElement.classList.remove('drawer-open');
+  document.body.classList.remove('drawer-open');
+  document.body.style.position = '';
+  document.body.style.top = '';
+  document.body.style.left = '';
+  document.body.style.right = '';
+  document.body.style.width = '';
+  document.body.style.overflow = '';
+  document.documentElement.style.overflow = '';
+  window.scrollTo(0, scrollLockY);
+}
+
 function closeDrawer() {
   const overlay = document.getElementById('overlay');
   if (overlay) overlay.classList.remove('open');
-  document.body.style.overflow = '';
+  currentDrawerId = null;
+  unlockPageScroll();
   /* Drop focus so focus-visible wash doesn't stick on the work row */
   const ae = document.activeElement;
   if (ae && typeof ae.blur === 'function') ae.blur();
@@ -1608,9 +1658,12 @@ function handleOverlayClick(e) {
 }
 
 document.addEventListener('keydown', e => {
-  if (e.key !== 'Escape') return;
   const overlay = document.getElementById('overlay');
-  if (overlay && overlay.classList.contains('open')) closeDrawer();
+  const open = overlay && overlay.classList.contains('open');
+  if (!open) return;
+  if (e.key === 'Escape') {
+    closeDrawer();
+  }
 });
 
 /* Nav scroll state + spy */
@@ -1655,6 +1708,7 @@ renderWork();
 renderTicker();
 
 (function () {
+
   const track = document.getElementById('ticker-track');
   const prev = document.getElementById('ticker-prev');
   const next = document.getElementById('ticker-next');
