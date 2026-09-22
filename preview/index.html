@@ -404,9 +404,6 @@ section { scroll-margin-top: calc(var(--nav-h) + 24px); }
   appearance: none;
   -webkit-appearance: none;
 }
-.ticker-thumb:hover {
-  /* no hover treatment on Selected Frames */
-}
 .ticker-thumb:focus-visible {
   outline: 1px solid var(--ink);
   outline-offset: 2px;
@@ -1597,9 +1594,6 @@ function openDrawer(id) {
   document.getElementById('overlay').classList.add('open');
   document.body.style.overflow = 'hidden';
 }
-/* Back-compat alias used in older drafts */
-const open_ = openDrawer;
-
 function closeDrawer() {
   const overlay = document.getElementById('overlay');
   if (overlay) overlay.classList.remove('open');
@@ -1624,18 +1618,38 @@ const gnav = document.getElementById('gnav');
 const sections = ['overview', 'work', 'engage'].map(id => document.getElementById(id));
 const tabs = [...document.querySelectorAll('.gtab')];
 
+function setActiveTab(id) {
+  tabs.forEach(t => t.classList.toggle('active', t.dataset.section === id));
+}
+
 function onScroll() {
-  gnav.classList.toggle('scrolled', window.scrollY > 8);
+  if (gnav) gnav.classList.toggle('scrolled', window.scrollY > 8);
   const y = window.scrollY + 80;
   let current = 'overview';
   for (const s of sections) {
     if (s && s.offsetTop <= y) current = s.id;
   }
-  tabs.forEach(t => t.classList.toggle('active', t.dataset.section === current));
+  setActiveTab(current);
 }
+
+tabs.forEach(t => {
+  t.addEventListener('click', () => {
+    const id = t.dataset.section;
+    if (id) setActiveTab(id);
+  });
+});
+
+window.addEventListener('hashchange', () => {
+  const id = (location.hash || '#overview').slice(1);
+  if (['overview', 'work', 'engage'].includes(id)) setActiveTab(id);
+});
 
 window.addEventListener('scroll', onScroll, { passive: true });
 onScroll();
+if (location.hash) {
+  const id = location.hash.slice(1);
+  if (['overview', 'work', 'engage'].includes(id)) setActiveTab(id);
+}
 
 renderWork();
 renderTicker();
