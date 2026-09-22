@@ -390,8 +390,8 @@ section { scroll-margin-top: calc(var(--nav-h) + 24px); }
 
 .ticker-thumb {
   flex: 0 0 auto;
-  width: 185px;
-  height: 115px;
+  width: 231px;
+  height: 144px;
   border: 1px solid var(--rule);
   border-radius: 2px;
   padding: 0;
@@ -1067,9 +1067,9 @@ section { scroll-margin-top: calc(var(--nav-h) + 24px); }
     padding: 72px 0 88px;
   }
   .ticker-thumb {
-    width: 154px;
-    height: 96px;
-    min-width: 154px;
+    width: 193px;
+    height: 120px;
+    min-width: 193px;
   }
   .drawer {
     width: min(572px, 100vw);
@@ -1120,7 +1120,7 @@ section { scroll-margin-top: calc(var(--nav-h) + 24px); }
   .work-row .co { font-size: 14px; }
   .drawer-gallery { grid-template-columns: 1fr; }
   .drawer { width: min(100vw, 572px); max-width: 100%; }
-  .ticker-thumb { width: 134px; height: 84px; min-width: 134px; }
+  .ticker-thumb { width: 168px; height: 105px; min-width: 168px; }
   .params { grid-template-columns: 1fr; }
   .engage-hed { font-size: 28px; }
   .site-footer { flex-direction: column; align-items: flex-start; }
@@ -1459,16 +1459,16 @@ const TICKER_EXTRA = [
   {
     name: 'Paradigm',
     color: '#0A0A0A',
-    caption: 'CRYPTO IS MONEY · LP Summit 2025',
-    src: 'portfolio-samples/paradigm/01-crypto-is-money.jpg'
-  },
-  {
-    name: 'Paradigm',
-    color: '#0A0A0A',
     caption: 'Portfolio support',
     src: 'portfolio-samples/paradigm/02-portfolio-support.jpg'
   }
 ];
+
+/* Paths excluded from Selected Frames only (still show in drawers). */
+const TICKER_EXCLUDE = new Set([
+  'portfolio-samples/duarte/02-analysis-process.jpg',
+  'portfolio-samples/paradigm/01-crypto-is-money.jpg'
+]);
 
 function renderTicker() {
   const track = document.getElementById('ticker-track');
@@ -1478,7 +1478,7 @@ function renderTicker() {
   ORDER.forEach(id => {
     const d = DATA[id];
     const photos = (d.samples || [])
-      .filter(s => s.src && !/\.gif(?:[?#]|$)/i.test(s.src))
+      .filter(s => s.src && !/\.gif(?:[?#]|$)/i.test(s.src) && !TICKER_EXCLUDE.has(s.src))
       .slice(0, 2);
     photos.forEach((s) => items.push({ kind: 'client', id, d, s }));
   });
@@ -1520,7 +1520,7 @@ function syncTickerNav() {
 function scrollTicker(dir) {
   const track = document.getElementById('ticker-track');
   if (!track) return;
-  const step = Math.max(220, Math.floor(track.clientWidth * 0.8));
+  const step = Math.max(260, Math.floor(track.clientWidth * 0.85));
   track.scrollBy({ left: dir * step, behavior: 'smooth' });
 }
 
@@ -1581,6 +1581,10 @@ function openDrawer(id) {
   document.getElementById('d-tags').innerHTML = (d.tags || []).map(t =>
     `<span class="drawer-tag">${escapeXml(t)}</span>`
   ).join('');
+  const body = document.querySelector('.drawer-body');
+  if (body) body.scrollTop = 0;
+  const drawer = document.getElementById('drawer');
+  if (drawer) drawer.scrollTop = 0;
   document.getElementById('overlay').classList.add('open');
   document.body.style.overflow = 'hidden';
 }
