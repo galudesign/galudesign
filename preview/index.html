@@ -346,8 +346,8 @@ section { scroll-margin-top: calc(var(--nav-h) + 24px); }
 
 .ticker-thumb {
   flex: 0 0 auto;
-  width: 154px;
-  height: 96px;
+  width: 185px;
+  height: 115px;
   border: 1px solid var(--rule);
   border-radius: 2px;
   padding: 0;
@@ -380,9 +380,9 @@ section { scroll-margin-top: calc(var(--nav-h) + 24px); }
 /* ─── WORK INDEX ──────────────── */
 .work {
   /* vertical only · horizontal pad comes from .wrap (do not shorthand-overwrite) */
-  /* Shared hairline: bottom of Frames / top of Selected Work */
-  border-top: 1px solid var(--rule);
-  padding-top: 20px;
+  /* Hairline lives on .section-label so width matches Selected Frames rule */
+  border-top: none;
+  padding-top: 0;
   padding-bottom: 64px;
 }
 
@@ -391,6 +391,9 @@ section { scroll-margin-top: calc(var(--nav-h) + 24px); }
   align-items: baseline;
   justify-content: space-between;
   margin-bottom: 28px;
+  /* Same content-box width as .samples-ticker top rule */
+  border-top: 1px solid var(--rule);
+  padding-top: 20px;
 }
 
 .section-label h2 {
@@ -779,7 +782,7 @@ section { scroll-margin-top: calc(var(--nav-h) + 24px); }
 .drawer {
   position: fixed;
   top: 0; right: 0;
-  width: min(440px, 100vw);
+  width: min(572px, 100vw);
   height: 100%;
   height: 100dvh;
   background: var(--ink);
@@ -800,7 +803,7 @@ section { scroll-margin-top: calc(var(--nav-h) + 24px); }
 
 .drawer-hero {
   width: 100%;
-  height: 180px;
+  height: 234px;
   flex-shrink: 0;
   overflow: hidden;
   background: #111;
@@ -898,8 +901,8 @@ section { scroll-margin-top: calc(var(--nav-h) + 24px); }
 
 .drawer-gallery {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 8px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
   margin-bottom: 32px;
 }
 .drawer-gallery:empty { display: none; margin: 0; }
@@ -1010,17 +1013,18 @@ section { scroll-margin-top: calc(var(--nav-h) + 24px); }
     padding: 72px 0 88px;
   }
   .ticker-thumb {
-    width: 112px;
-    height: 72px;
-    min-width: 112px;
+    width: 154px;
+    height: 96px;
+    min-width: 154px;
   }
   .drawer {
-    width: min(440px, 100vw);
+    width: min(572px, 100vw);
     max-width: 100%;
   }
   .drawer-gallery {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
+  /* already 2-col; thumbs scale with wider drawer */
   .work-row {
     grid-template-columns: 28px 28px minmax(0, 1fr) 72px 20px;
     column-gap: 12px;
@@ -1061,8 +1065,8 @@ section { scroll-margin-top: calc(var(--nav-h) + 24px); }
   }
   .work-row .co { font-size: 14px; }
   .drawer-gallery { grid-template-columns: 1fr; }
-  .drawer { width: min(100vw, 440px); max-width: 100%; }
-  .ticker-thumb { width: 104px; height: 66px; min-width: 104px; }
+  .drawer { width: min(100vw, 572px); max-width: 100%; }
+  .ticker-thumb { width: 134px; height: 84px; min-width: 134px; }
   .params { grid-template-columns: 1fr; }
   .engage-hed { font-size: 28px; }
   .site-footer { flex-direction: column; align-items: flex-start; }
@@ -1514,13 +1518,42 @@ onScroll();
 renderWork();
 renderTicker();
 
-/* Horizontal scroll Selected Frames when hovering anywhere in the section */
+/* When Selected Frames hits mid-viewport, vertical scroll drives the strip horizontally */
 (function () {
   const section = document.querySelector('.samples-ticker');
   const track = document.getElementById('ticker-track');
   if (!section || !track) return;
+
+  function stripCanScroll() {
+    return track.scrollWidth > track.clientWidth + 1;
+  }
+
+  window.addEventListener('wheel', (e) => {
+    if (!stripCanScroll()) return;
+    if (Math.abs(e.deltaY) < Math.abs(e.deltaX)) return;
+
+    const rect = section.getBoundingClientRect();
+    const vh = window.innerHeight || document.documentElement.clientHeight;
+    const mid = vh * 0.45;
+    const inBand = rect.top <= mid && rect.bottom >= mid;
+    if (!inBand) return;
+
+    const dy = e.deltaY;
+    const atStart = track.scrollLeft <= 0;
+    const atEnd = track.scrollLeft + track.clientWidth >= track.scrollWidth - 1;
+
+    if (dy > 0 && !atEnd) {
+      e.preventDefault();
+      track.scrollLeft += dy;
+    } else if (dy < 0 && !atStart) {
+      e.preventDefault();
+      track.scrollLeft += dy;
+    }
+  }, { passive: false });
+
+  /* Also allow wheel anywhere on the section while hovering it */
   section.addEventListener('wheel', (e) => {
-    if (track.scrollWidth <= track.clientWidth + 1) return;
+    if (!stripCanScroll()) return;
     const dominant = Math.abs(e.deltaY) >= Math.abs(e.deltaX) ? e.deltaY : e.deltaX;
     if (!dominant) return;
     const atStart = track.scrollLeft <= 0;
