@@ -432,7 +432,8 @@ section { scroll-margin-top: calc(var(--nav-h) + 24px); }
   /* Hairline lives on .section-label so width matches Selected Frames rule */
   border-top: none;
   padding-top: 0;
-  padding-bottom: 64px;
+  /* Match .statement padding-bottom (space above Selected Frames rule) */
+  padding-bottom: 112px;
 }
 
 .section-label {
@@ -615,14 +616,15 @@ section { scroll-margin-top: calc(var(--nav-h) + 24px); }
 /* ─── ENGAGE ──────────────────── */
 .engage {
   /* vertical only · keep .wrap horizontal pad */
-  /* Extra air above Engage rule (19px was invisible; ~48px reads as more space) */
-  padding-top: 48px;
+  /* Top gap owned by .work padding-bottom (matches statement→Frames) */
+  padding-top: 0;
   padding-bottom: 128px;
 }
 
 .engage-intro {
   /* Rule above title · same 20px as Selected Work .section-label */
-  padding: 20px 0 28px;
+  /* A bit more space from title down to Consulting / FT */
+  padding: 20px 0 48px;
   border-top: 1px solid var(--rule);
 }
 
