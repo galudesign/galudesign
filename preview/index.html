@@ -22,21 +22,21 @@
   /* Inter Tight (narrower UI sans) + Instrument Serif display */
   --font: 'Inter Tight', system-ui, sans-serif;
   --font-display: 'Instrument Serif', Georgia, serif;
-  /* Type scale · few sizes, big jumps */
-  --t-ui: 11px;
-  --t-body: 16px;
-  --t-lead: 20px;
-  --t-hed: 32px;
-  --t-mark: 56px;
-  --pad: 48px;
-  --drawer-pad: 36px;
-  --max: 960px;
-  --nav-h: 52px;
+  /* Type scale · few sizes, big jumps (+20% site scale) */
+  --t-ui: 13px;
+  --t-body: 19px;
+  --t-lead: 24px;
+  --t-hed: 38px;
+  --t-mark: 67px;
+  --pad: 58px;
+  --drawer-pad: 43px;
+  --max: 1152px;
+  --nav-h: 62px;
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 html {
-  font-size: 16px;
+  font-size: 19px;
   scroll-behavior: smooth;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -228,7 +228,7 @@ section { scroll-margin-top: calc(var(--nav-h) + 24px); }
 
 .name {
   font-family: var(--font-display);
-  font-size: clamp(44px, 6vw, var(--t-mark));
+  font-size: clamp(53px, 6vw, var(--t-mark));
   font-weight: 400;
   line-height: 0.98;
   letter-spacing: -0.03em;
@@ -290,7 +290,7 @@ section { scroll-margin-top: calc(var(--nav-h) + 24px); }
 
 .statement-hed {
   font-family: var(--font-display);
-  font-size: clamp(31px, 3.64vw, 42px);
+  font-size: clamp(37px, 4.37vw, 50px);
   font-weight: 400;
   line-height: 1.2;
   letter-spacing: -0.02em;
@@ -309,10 +309,12 @@ section { scroll-margin-top: calc(var(--nav-h) + 24px); }
 
 /* ─── WORK SAMPLES TICKER ─────── */
 .samples-ticker {
-  /* Match rule→label gap used by .work / .section-label */
-  padding: 20px 0 28px;
+  /* Top rule only; bottom rule moved to .work (Selected Work title) */
+  padding: 20px 0 64px;
   border-top: 1px solid var(--rule);
-  border-bottom: 1px solid var(--rule);
+  border-bottom: none;
+  /* Wider hit area for horizontal scroll (wheel anywhere in section) */
+  cursor: default;
 }
 
 .samples-ticker-label {
@@ -344,8 +346,8 @@ section { scroll-margin-top: calc(var(--nav-h) + 24px); }
 
 .ticker-thumb {
   flex: 0 0 auto;
-  width: 128px;
-  height: 80px;
+  width: 154px;
+  height: 96px;
   border: 1px solid var(--rule);
   border-radius: 2px;
   padding: 0;
@@ -378,8 +380,9 @@ section { scroll-margin-top: calc(var(--nav-h) + 24px); }
 /* ─── WORK INDEX ──────────────── */
 .work {
   /* vertical only · horizontal pad comes from .wrap (do not shorthand-overwrite) */
-  /* Extra air after Selected Frames; top rule stays on ticker bottom */
-  padding-top: 64px;
+  /* Shared hairline: bottom of Frames / top of Selected Work */
+  border-top: 1px solid var(--rule);
+  padding-top: 20px;
   padding-bottom: 64px;
 }
 
@@ -984,7 +987,7 @@ section { scroll-margin-top: calc(var(--nav-h) + 24px); }
 /* ─── RESPONSIVE ──────────────── */
 /* Collapse centered tabs before they collide with mark/email (~700–900) */
 @media (max-width: 900px) {
-  :root { --pad: 24px; --drawer-pad: 28px; }
+  :root { --pad: 29px; --drawer-pad: 34px; }
   .gnav-inner { gap: 8px; min-width: 0; }
   .gnav-tabs {
     position: static;
@@ -1036,7 +1039,7 @@ section { scroll-margin-top: calc(var(--nav-h) + 24px); }
 }
 
 @media (max-width: 520px) {
-  :root { --pad: 20px; --drawer-pad: 24px; --t-mark: 48px; }
+  :root { --pad: 24px; --drawer-pad: 29px; --t-mark: 58px; }
   .gnav-mark { display: none; }
   .gnav-inner { justify-content: center; }
   .gnav-right { display: none; }
@@ -1510,6 +1513,24 @@ onScroll();
 
 renderWork();
 renderTicker();
+
+/* Horizontal scroll Selected Frames when hovering anywhere in the section */
+(function () {
+  const section = document.querySelector('.samples-ticker');
+  const track = document.getElementById('ticker-track');
+  if (!section || !track) return;
+  section.addEventListener('wheel', (e) => {
+    if (track.scrollWidth <= track.clientWidth + 1) return;
+    const dominant = Math.abs(e.deltaY) >= Math.abs(e.deltaX) ? e.deltaY : e.deltaX;
+    if (!dominant) return;
+    const atStart = track.scrollLeft <= 0;
+    const atEnd = track.scrollLeft + track.clientWidth >= track.scrollWidth - 1;
+    if ((dominant < 0 && atStart) || (dominant > 0 && atEnd)) return;
+    e.preventDefault();
+    track.scrollLeft += dominant;
+  }, { passive: false });
+})();
+
 </script>
 </body>
 </html>
