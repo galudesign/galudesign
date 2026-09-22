@@ -313,8 +313,14 @@ section { scroll-margin-top: calc(var(--nav-h) + 24px); }
   padding: 20px 0 64px;
   border-top: 1px solid var(--rule);
   border-bottom: none;
-  /* Wider hit area for horizontal scroll (wheel anywhere in section) */
-  cursor: default;
+}
+
+.samples-ticker-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 16px;
 }
 
 .samples-ticker-label {
@@ -323,7 +329,50 @@ section { scroll-margin-top: calc(var(--nav-h) + 24px); }
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--ink);
-  margin-bottom: 16px;
+  margin: 0;
+}
+
+.ticker-nav {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.ticker-nav-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  min-width: 40px;
+  min-height: 40px;
+  padding: 0;
+  margin: 0;
+  border: 1px solid var(--ink);
+  border-radius: 2px;
+  background: var(--white);
+  color: var(--ink);
+  font-size: 18px;
+  line-height: 1;
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+  transition: background 140ms ease, color 140ms ease, opacity 140ms ease;
+}
+.ticker-nav-btn:hover {
+  background: var(--ink);
+  color: #fff;
+}
+.ticker-nav-btn:focus-visible {
+  outline: 1px solid var(--ink);
+  outline-offset: 2px;
+}
+.ticker-nav-btn:disabled {
+  opacity: 0.28;
+  cursor: default;
+  background: transparent;
+  color: var(--ink);
 }
 
 .ticker-track {
@@ -335,14 +384,9 @@ section { scroll-margin-top: calc(var(--nav-h) + 24px); }
   scroll-snap-type: x proximity;
   -webkit-overflow-scrolling: touch;
   overscroll-behavior-x: contain;
-  scrollbar-width: thin;
-  scrollbar-color: var(--rule) transparent;
+  scrollbar-width: none;
 }
-.ticker-track::-webkit-scrollbar { height: 4px; }
-.ticker-track::-webkit-scrollbar-thumb {
-  background: var(--rule);
-  border-radius: 2px;
-}
+.ticker-track::-webkit-scrollbar { display: none; height: 0; }
 
 .ticker-thumb {
   flex: 0 0 auto;
@@ -709,22 +753,32 @@ section { scroll-margin-top: calc(var(--nav-h) + 24px); }
   display: inline-flex;
   align-items: center;
   gap: 8px;
+  font-family: var(--font);
   font-size: var(--t-ui);
   font-weight: 500;
   letter-spacing: 0.06em;
   text-transform: uppercase;
   color: var(--ink);
   text-decoration: none;
+  background: none;
+  border: none;
   border-bottom: 1px solid var(--ink);
   padding: 12px 0 4px;
   min-height: 44px;
+  cursor: pointer;
   transition: color 160ms ease, border-color 160ms ease;
   border-radius: 0;
+  appearance: none;
+  -webkit-appearance: none;
 }
 .cta:hover { color: var(--mid); border-color: var(--mid); }
 .cta:focus-visible {
   outline: 1px solid var(--ink);
   outline-offset: 4px;
+}
+.cta.is-copied {
+  color: var(--mid);
+  border-bottom-color: var(--mid);
 }
 
 /* ─── FOOTER ──────────────────── */
@@ -1137,7 +1191,13 @@ section { scroll-margin-top: calc(var(--nav-h) + 24px); }
     </div>
 
     <div class="samples-ticker" aria-label="Work samples">
-      <p class="samples-ticker-label">Selected frames</p>
+      <div class="samples-ticker-head">
+        <p class="samples-ticker-label">Selected frames</p>
+        <div class="ticker-nav" role="group" aria-label="Scroll selected frames">
+          <button type="button" class="ticker-nav-btn" id="ticker-prev" aria-label="Previous frames">‹</button>
+          <button type="button" class="ticker-nav-btn" id="ticker-next" aria-label="Next frames">›</button>
+        </div>
+      </div>
       <div class="ticker-track" id="ticker-track"></div>
     </div>
   </section>
@@ -1190,7 +1250,7 @@ section { scroll-margin-top: calc(var(--nav-h) + 24px); }
           </div>
         </div>
 
-        <a class="cta" href="mailto:andrew@galudesign.com?subject=Fit%20call">Book a fit call<span aria-hidden="true">↗</span></a>
+        <a class="cta" id="book-fit-call" href="https://calendar.google.com/calendar/u/0/r/appointment" target="_blank" rel="noopener">Book a fit call<span aria-hidden="true">↗</span></a>
       </div>
 
       <!-- Full-time -->
@@ -1207,7 +1267,7 @@ section { scroll-margin-top: calc(var(--nav-h) + 24px); }
           <li class="crit-item"><span class="n">05</span><span>Inflection: launch, rebrand, scale, or IPO, when this function matters most.</span></li>
         </ul>
 
-        <a class="cta" href="mailto:andrew@galudesign.com?subject=Full-time%20role">Email about a role<span aria-hidden="true">↗</span></a>
+        <button type="button" class="cta" id="copy-email" data-email="andrew@galudesign.com">Email about a role<span aria-hidden="true">↗</span></button>
       </div>
     </div>
   </section>
@@ -1395,22 +1455,74 @@ function sampleImg(d, sample, w, h, alt, opts) {
   return `<img src="${src}" alt="${escapeXml(alt || sample.caption)}"${dims} loading="${loading}" decoding="async">`;
 }
 
+/* Frames-only extras (not in client drawers) */
+const TICKER_EXTRA = [
+  {
+    name: 'Paradigm',
+    color: '#0A0A0A',
+    caption: 'CRYPTO IS MONEY · LP Summit 2025',
+    src: 'portfolio-samples/paradigm/01-crypto-is-money.jpg'
+  },
+  {
+    name: 'Paradigm',
+    color: '#0A0A0A',
+    caption: 'Portfolio support',
+    src: 'portfolio-samples/paradigm/02-portfolio-support.jpg'
+  }
+];
+
 function renderTicker() {
   const track = document.getElementById('ticker-track');
   if (!track) return;
   const items = [];
-  /* Slim strip: real photo frames only, up to 2 per client (mix OpenAI/Sierra/Okta/DataRobot). */
+  /* Real stills only; skip GIFs in the strip (OpenAI Leadership Q&A stays in the drawer). */
   ORDER.forEach(id => {
     const d = DATA[id];
-    const photos = (d.samples || []).filter(s => s.src).slice(0, 2);
-    photos.forEach((s, i) => items.push({ id, d, s, i }));
+    const photos = (d.samples || [])
+      .filter(s => s.src && !/\.gif(?:[?#]|$)/i.test(s.src))
+      .slice(0, 2);
+    photos.forEach((s) => items.push({ kind: 'client', id, d, s }));
   });
-  track.innerHTML = items.map(({ id, d, s }) =>
-    `<button type="button" class="ticker-thumb" onclick="openDrawer('${id}')" ` +
-    `aria-label="${escapeXml(d.name)} · ${escapeXml(s.caption)}">` +
-    sampleImg(d, s, 256, 160, `${d.name} ${s.caption}`) +
-    `</button>`
-  ).join('');
+  TICKER_EXTRA.forEach((ex) => items.push({ kind: 'extra', ex }));
+
+  track.innerHTML = items.map((item) => {
+    if (item.kind === 'extra') {
+      const ex = item.ex;
+      const fake = { color: ex.color, src: ex.src, caption: ex.caption };
+      return (
+        `<button type="button" class="ticker-thumb" ` +
+        `aria-label="${escapeXml(ex.name)} · ${escapeXml(ex.caption)}">` +
+        sampleImg(fake, fake, 256, 160, `${ex.name} ${ex.caption}`) +
+        `</button>`
+      );
+    }
+    const { id, d, s } = item;
+    return (
+      `<button type="button" class="ticker-thumb" onclick="openDrawer('${id}')" ` +
+      `aria-label="${escapeXml(d.name)} · ${escapeXml(s.caption)}">` +
+      sampleImg(d, s, 256, 160, `${d.name} ${s.caption}`) +
+      `</button>`
+    );
+  }).join('');
+
+  syncTickerNav();
+}
+
+function syncTickerNav() {
+  const track = document.getElementById('ticker-track');
+  const prev = document.getElementById('ticker-prev');
+  const next = document.getElementById('ticker-next');
+  if (!track || !prev || !next) return;
+  const max = Math.max(0, track.scrollWidth - track.clientWidth);
+  prev.disabled = track.scrollLeft <= 2;
+  next.disabled = track.scrollLeft >= max - 2;
+}
+
+function scrollTicker(dir) {
+  const track = document.getElementById('ticker-track');
+  if (!track) return;
+  const step = Math.max(220, Math.floor(track.clientWidth * 0.8));
+  track.scrollBy({ left: dir * step, behavior: 'smooth' });
 }
 
 function renderWork() {
@@ -1518,51 +1630,42 @@ onScroll();
 renderWork();
 renderTicker();
 
-/* When Selected Frames hits mid-viewport, vertical scroll drives the strip horizontally */
 (function () {
-  const section = document.querySelector('.samples-ticker');
   const track = document.getElementById('ticker-track');
-  if (!section || !track) return;
-
-  function stripCanScroll() {
-    return track.scrollWidth > track.clientWidth + 1;
+  const prev = document.getElementById('ticker-prev');
+  const next = document.getElementById('ticker-next');
+  if (prev) prev.addEventListener('click', () => scrollTicker(-1));
+  if (next) next.addEventListener('click', () => scrollTicker(1));
+  if (track) {
+    track.addEventListener('scroll', syncTickerNav, { passive: true });
+    window.addEventListener('resize', syncTickerNav);
   }
 
-  window.addEventListener('wheel', (e) => {
-    if (!stripCanScroll()) return;
-    if (Math.abs(e.deltaY) < Math.abs(e.deltaX)) return;
-
-    const rect = section.getBoundingClientRect();
-    const vh = window.innerHeight || document.documentElement.clientHeight;
-    const mid = vh * 0.45;
-    const inBand = rect.top <= mid && rect.bottom >= mid;
-    if (!inBand) return;
-
-    const dy = e.deltaY;
-    const atStart = track.scrollLeft <= 0;
-    const atEnd = track.scrollLeft + track.clientWidth >= track.scrollWidth - 1;
-
-    if (dy > 0 && !atEnd) {
-      e.preventDefault();
-      track.scrollLeft += dy;
-    } else if (dy < 0 && !atStart) {
-      e.preventDefault();
-      track.scrollLeft += dy;
-    }
-  }, { passive: false });
-
-  /* Also allow wheel anywhere on the section while hovering it */
-  section.addEventListener('wheel', (e) => {
-    if (!stripCanScroll()) return;
-    const dominant = Math.abs(e.deltaY) >= Math.abs(e.deltaX) ? e.deltaY : e.deltaX;
-    if (!dominant) return;
-    const atStart = track.scrollLeft <= 0;
-    const atEnd = track.scrollLeft + track.clientWidth >= track.scrollWidth - 1;
-    if ((dominant < 0 && atStart) || (dominant > 0 && atEnd)) return;
-    e.preventDefault();
-    track.scrollLeft += dominant;
-  }, { passive: false });
+  const copyBtn = document.getElementById('copy-email');
+  if (copyBtn) {
+    const email = copyBtn.getAttribute('data-email') || 'andrew@galudesign.com';
+    const label = copyBtn.innerHTML;
+    copyBtn.addEventListener('click', async () => {
+      try {
+        await navigator.clipboard.writeText(email);
+      } catch (err) {
+        const ta = document.createElement('textarea');
+        ta.value = email;
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand('copy');
+        document.body.removeChild(ta);
+      }
+      copyBtn.classList.add('is-copied');
+      copyBtn.innerHTML = 'Email address copied<span aria-hidden="true">↗</span>';
+      window.setTimeout(() => {
+        copyBtn.classList.remove('is-copied');
+        copyBtn.innerHTML = label;
+      }, 1800);
+    });
+  }
 })();
+
 
 </script>
 </body>
