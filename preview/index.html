@@ -327,7 +327,7 @@ section { scroll-margin-top: calc(var(--nav-h) + 24px); }
 
 .samples-ticker-head {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: space-between;
   gap: 16px;
   margin-bottom: 16px;
@@ -620,9 +620,9 @@ section { scroll-margin-top: calc(var(--nav-h) + 24px); }
 }
 
 .engage-intro {
-  /* No rule above Engage; sit closer to Work */
-  padding: 48px 0 56px;
-  border-top: none;
+  /* Rule above title · same 20px as Selected Work .section-label */
+  padding: 20px 0 28px;
+  border-top: 1px solid var(--rule);
 }
 
 .engage-hed {
@@ -631,7 +631,7 @@ section { scroll-margin-top: calc(var(--nav-h) + 24px); }
   font-weight: 400;
   line-height: 1.2;
   letter-spacing: -0.02em;
-  margin-bottom: 24px;
+  margin-bottom: 0;
   max-width: 12em;
 }
 .engage-hed em {
@@ -652,7 +652,7 @@ section { scroll-margin-top: calc(var(--nav-h) + 24px); }
   grid-template-columns: 1fr 1fr;
   gap: 64px;
   border: none;
-  border-top: 1px solid var(--rule);
+  border-top: none;
   background: transparent;
   margin: 0;
   width: auto;
@@ -660,7 +660,7 @@ section { scroll-margin-top: calc(var(--nav-h) + 24px); }
 }
 
 .engage-col {
-  padding: 48px 0 56px;
+  padding: 0 0 56px;
   margin: 0;
 }
 .engage-col + .engage-col {
