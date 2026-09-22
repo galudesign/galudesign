@@ -1206,7 +1206,6 @@ section { scroll-margin-top: calc(var(--nav-h) + 24px); }
   <section class="wrap work" id="work">
     <div class="section-label">
       <h2>Selected Work</h2>
-      <span class="count" id="work-count">07</span>
     </div>
     <ul class="work-list" id="work-list"></ul>
     <p class="work-also"><strong>Also:</strong> Paradigm: presentation advisory for high-stakes executive moments. ADPList: mentoring presentation designers and design leaders.</p>
@@ -1527,8 +1526,6 @@ function scrollTicker(dir) {
 
 function renderWork() {
   const list = document.getElementById('work-list');
-  const countEl = document.getElementById('work-count');
-  if (countEl) countEl.textContent = pad(ORDER.length);
   if (!list) return;
   list.innerHTML = ORDER.map((id, i) => {
     const d = DATA[id];
