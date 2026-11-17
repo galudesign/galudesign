@@ -24,8 +24,10 @@ Keeps every other change made since 2026-11-17.
 1. **CSS.** In `index.html` `<style>`, replace everything from
    `/* ─── ENGAGE ──────────────────── */` up to (not including)
    `/* ─── FOOTER ──────────────────── */` with the ENGAGE block from part 1 of
-   the archived file. (It restores `.params`, `.param*`, and `.cta.is-copied`;
-   `.crit-title` and `.crit-desc` are only used by the advisory version and can go.)
+   the archived file. (It restores `.params` and `.param*`; `.cta.is-copied`
+   is still in the live CSS, so don't add it twice. `.crit-title`, `.crit-desc`
+   and the desktop-only `.engage .crit-list` media query are only used by the
+   advisory version and can go.)
    Add `.wrap .params,` back to the "Sacred rule" selector list near the top
    (after `.wrap .engage-copy,`).
 2. **Responsive CSS.** In `@media (max-width: 900px)`, replace
@@ -39,9 +41,10 @@ Keeps every other change made since 2026-11-17.
    `.params { grid-template-columns: 1fr; }`.
 3. **HTML.** Replace the whole `<!-- ENGAGE · Advisory & Consulting ... -->` comment and
    `<section class="wrap engage" id="engage" ...> ... </section>` with part 2.
-4. **JS.** In the final `(function () { ... })();` of the main `<script>`,
-   paste part 3 (the `copy-email` handler) right after the ticker
-   `if (track) { ... }` block, before `})();`.
+4. **JS.** No change needed: the advisory version's "Get in touch" button
+   reuses the same `copy-email` handler (part 3), which is still in the live
+   script. Just make sure only one element has `id="copy-email"` (the
+   archived markup's "Email about a role" button).
 5. **Meta description** (optional): the original was
    `Andrew Galu is a founding presentation designer. Consulting that leaves teams independent; selectively open to full-time function-build roles. Okta, OpenAI, Sierra. Bay Area.`
 6. Check locally (`python3 -m http.server` in the repo root, open
