@@ -1,0 +1,298 @@
+<!--
+  ARCHIVED SECTION: "Engage with me" (Consulting + Full-time), as live on
+  galudesign.com until 2026-11-17 (production commit 475b1c2,
+  tag site-archive-pre-advisory-update-2026-11-17).
+
+  NOT PUBLISHED: this file lives in _archive/, and GitHub Pages (Jekyll) skips
+  underscore-prefixed folders. It is not linked or loaded by index.html.
+
+  Contents, copied verbatim from index.html at that commit:
+    1. CSS  : the full ENGAGE block (index.html lines 624-798) and the
+              engage/params rules from the RESPONSIVE media queries.
+    2. HTML : the complete <section id="engage"> markup (lines 1238-1295).
+    3. JS   : the "Email about a role" copy-to-clipboard handler (lines 1731-1753),
+              which lived inside the IIFE at the end of the main <script>.
+
+  Restore steps: see _archive/RESTORE-engage-section.md
+-->
+
+<!-- ===== 1. CSS (goes inside the <style> in <head>, replacing the current ENGAGE block) ===== -->
+<style>
+/* ─── ENGAGE ──────────────────── */
+.engage {
+  /* vertical only · keep .wrap horizontal pad */
+  /* Top gap owned by .work padding-bottom (matches statement→Frames) */
+  padding-top: 0;
+  padding-bottom: 128px;
+}
+
+.engage-intro {
+  /* Rule above title · same 20px as Selected Work .section-label */
+  /* A bit more space from title down to Consulting / FT */
+  padding: 20px 0 48px;
+  border-top: 1px solid var(--rule);
+}
+
+.engage-hed {
+  font-family: var(--font-display);
+  font-size: clamp(37px, 4.37vw, 50px);
+  font-weight: 400;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  margin-bottom: 0;
+  max-width: 12em;
+}
+.engage-hed em {
+  font-style: italic;
+  font-weight: 400;
+  color: var(--mid);
+}
+
+.engage-sub {
+  font-size: var(--t-body);
+  color: var(--mid);
+  line-height: 1.7;
+  max-width: 36em;
+}
+
+.engage-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 64px;
+  border: none;
+  border-top: none;
+  background: transparent;
+  margin: 0;
+  width: auto;
+  max-width: none;
+}
+
+.engage-col {
+  padding: 0 0 56px;
+  margin: 0;
+}
+.engage-col + .engage-col {
+  border-left: none;
+}
+
+.engage-kicker {
+  font-size: var(--t-ui);
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink);
+  margin-bottom: 12px;
+}
+
+.engage-title {
+  font-size: var(--t-lead);
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  line-height: 1.3;
+  margin-bottom: 28px;
+  max-width: 16em;
+}
+
+.engage-copy {
+  font-size: var(--t-body);
+  color: var(--mid);
+  line-height: 1.7;
+  margin-bottom: 16px;
+  max-width: 32em;
+}
+.engage-copy:last-of-type { margin-bottom: 32px; }
+
+.params {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  background: var(--rule);
+  border: 1px solid var(--rule);
+  margin-bottom: 40px;
+}
+
+.param {
+  background: var(--white);
+  padding: 20px 16px;
+}
+
+.param-k {
+  font-size: var(--t-ui);
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--faint);
+  margin-bottom: 8px;
+}
+
+.param-v {
+  font-size: var(--t-body);
+  font-weight: 500;
+  letter-spacing: -0.015em;
+  color: var(--ink);
+  margin-bottom: 8px;
+}
+
+.param-n {
+  font-size: var(--t-ui);
+  color: var(--mid);
+  line-height: 1.5;
+}
+
+.crit-list {
+  list-style: none;
+  border-top: 1px solid var(--rule);
+  margin-bottom: 40px;
+}
+
+.crit-item {
+  display: grid;
+  grid-template-columns: 32px 1fr;
+  gap: 8px;
+  padding: 16px 0;
+  border-bottom: 1px solid var(--rule);
+  font-size: var(--t-body);
+  line-height: 1.6;
+  color: var(--mid);
+}
+.crit-item .n {
+  font-size: var(--t-ui);
+  color: var(--faint);
+  padding-top: 4px;
+  font-variant-numeric: tabular-nums;
+}
+
+.cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font);
+  font-size: var(--t-ui);
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink);
+  text-decoration: none;
+  background: none;
+  border: none;
+  border-bottom: 1px solid var(--ink);
+  padding: 12px 0 4px;
+  min-height: 44px;
+  cursor: pointer;
+  transition: color 160ms ease, border-color 160ms ease;
+  border-radius: 0;
+  appearance: none;
+  -webkit-appearance: none;
+}
+.cta:hover { color: var(--mid); border-color: var(--mid); }
+.cta:focus-visible {
+  outline: 1px solid var(--ink);
+  outline-offset: 4px;
+}
+.cta.is-copied {
+  color: var(--mid);
+  border-bottom-color: var(--mid);
+}
+
+/* inside @media (max-width: 900px) { ... } */
+  .engage-grid {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+  .engage-col + .engage-col {
+    border-left: none;
+    border-top: 1px solid var(--rule);
+  }
+  .engage-col { padding: 40px 0 48px; }
+  .params { grid-template-columns: 1fr 1fr; }
+
+/* inside @media (max-width: 520px) { ... } */
+  .params { grid-template-columns: 1fr; }
+</style>
+
+<!-- ===== 2. HTML (replaces the current <section class="wrap engage" id="engage"> in <main>) ===== -->
+  <!-- ENGAGE -->
+  <section class="wrap engage" id="engage">
+    <div class="engage-intro">
+      <h2 class="engage-hed">Engage <em>with me</em></h2>
+    </div>
+
+    <div class="engage-grid">
+      <!-- Consulting -->
+      <div class="engage-col">
+        <p class="engage-kicker">Consulting</p>
+        <h3 class="engage-title">Limited retainers that build the system and hand it off.</h3>
+        <p class="engage-copy">One package: audit what exists, design the system, then hand it off so your team runs independently.</p>
+        <p class="engage-copy">The first conversation is a fit call, to understand where you are and what you need before scoping the work.</p>
+
+        <div class="params">
+          <div class="param">
+            <div class="param-k">Capacity</div>
+            <div class="param-v">Limited retainers</div>
+            <div class="param-n">A small number open at a time so the work gets real attention.</div>
+          </div>
+          <div class="param">
+            <div class="param-k">Engagement</div>
+            <div class="param-v">3-month retainer</div>
+            <div class="param-n">Audit → system → handoff. Project briefs considered when outcomes are clear.</div>
+          </div>
+          <div class="param">
+            <div class="param-k">Model</div>
+            <div class="param-v">Solo by default</div>
+            <div class="param-n">Trusted collaborators only when scope requires it.</div>
+          </div>
+          <div class="param">
+            <div class="param-k">Fit</div>
+            <div class="param-v">Brand / Comms</div>
+            <div class="param-n">Best alongside an internal brand or creative team. I integrate with how you already work.</div>
+          </div>
+        </div>
+
+        <a class="cta" id="book-fit-call" href="https://calendar.google.com/calendar/u/0/appointments/schedules/AcZssZ1QPL7Ls3JfJIjYietEE072ffw5oWlyEeR8yyA5mD2QQttjdPtLAf-LVg7AT2-X7_9Ka2p0SIR7" target="_blank" rel="noopener">Book a fit call<span aria-hidden="true">↗</span></a>
+      </div>
+
+      <!-- Full-time -->
+      <div class="engage-col">
+        <p class="engage-kicker">Full-time</p>
+        <h3 class="engage-title">Selectively open to roles that own and build the function.</h3>
+        <p class="engage-copy">I am always open to the next opportunity to build this function from 0 to 1 alongside today's best in-house brand teams.</p>
+
+        <ul class="crit-list">
+          <li class="crit-item"><span class="n">01</span><span>Zero-to-one or one-to-two. Building or elevating the function.</span></li>
+          <li class="crit-item"><span class="n">02</span><span>Direct partnership with brand and creative leadership. High-stakes work needs proximity.</span></li>
+          <li class="crit-item"><span class="n">03</span><span>Scope that includes narrative strategy. Slides are the byproduct; the work is how ideas move.</span></li>
+          <li class="crit-item"><span class="n">04</span><span>Executive access at critical moments. Partnership when it counts.</span></li>
+          <li class="crit-item"><span class="n">05</span><span>Inflection: launch, rebrand, scale, or IPO, when this function matters most.</span></li>
+        </ul>
+
+        <button type="button" class="cta" id="copy-email" data-email="andrew@galudesign.com">Email about a role<span aria-hidden="true">↗</span></button>
+      </div>
+    </div>
+  </section>
+
+<!-- ===== 3. JS (goes inside the final IIFE of the main <script>, after the ticker setup) ===== -->
+<script>
+  const copyBtn = document.getElementById('copy-email');
+  if (copyBtn) {
+    const email = copyBtn.getAttribute('data-email') || 'andrew@galudesign.com';
+    const label = copyBtn.innerHTML;
+    copyBtn.addEventListener('click', async () => {
+      try {
+        await navigator.clipboard.writeText(email);
+      } catch (err) {
+        const ta = document.createElement('textarea');
+        ta.value = email;
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand('copy');
+        document.body.removeChild(ta);
+      }
+      copyBtn.classList.add('is-copied');
+      copyBtn.innerHTML = 'Email address copied<span aria-hidden="true">↗</span>';
+      window.setTimeout(() => {
+        copyBtn.classList.remove('is-copied');
+        copyBtn.innerHTML = label;
+      }, 1800);
+    });
+  }
+</script>

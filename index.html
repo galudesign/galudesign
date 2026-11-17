@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="icon" href="favicon.png">
 <title>Andrew Galu · Presentation Design Functions</title>
-<meta name="description" content="Andrew Galu is a founding presentation designer. Consulting that leaves teams independent; selectively open to full-time function-build roles. Okta, OpenAI, Sierra. Bay Area.">
+<meta name="description" content="Andrew Galu is a founding presentation designer. Advisory and consulting on presentation design teams, systems, and talent. Okta, OpenAI, Sierra. Bay Area.">
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-3C5DYBDV8E"></script>
 <script>
@@ -216,7 +216,6 @@ a { color: inherit; }
 .wrap .engage-kicker,
 .wrap .engage-title,
 .wrap .engage-copy,
-.wrap .params,
 .wrap .crit-list,
 .wrap .cta,
 .wrap .site-footer,
@@ -631,7 +630,7 @@ section { scroll-margin-top: calc(var(--nav-h) + 24px); }
 
 .engage-intro {
   /* Rule above title · same 20px as Selected Work .section-label */
-  /* A bit more space from title down to Consulting / FT */
+  /* A bit more space from title down to the offering */
   padding: 20px 0 48px;
   border-top: 1px solid var(--rule);
 }
@@ -705,43 +704,6 @@ section { scroll-margin-top: calc(var(--nav-h) + 24px); }
 }
 .engage-copy:last-of-type { margin-bottom: 32px; }
 
-.params {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1px;
-  background: var(--rule);
-  border: 1px solid var(--rule);
-  margin-bottom: 40px;
-}
-
-.param {
-  background: var(--white);
-  padding: 20px 16px;
-}
-
-.param-k {
-  font-size: var(--t-ui);
-  font-weight: 500;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--faint);
-  margin-bottom: 8px;
-}
-
-.param-v {
-  font-size: var(--t-body);
-  font-weight: 500;
-  letter-spacing: -0.015em;
-  color: var(--ink);
-  margin-bottom: 8px;
-}
-
-.param-n {
-  font-size: var(--t-ui);
-  color: var(--mid);
-  line-height: 1.5;
-}
-
 .crit-list {
   list-style: none;
   border-top: 1px solid var(--rule);
@@ -763,6 +725,17 @@ section { scroll-margin-top: calc(var(--nav-h) + 24px); }
   color: var(--faint);
   padding-top: 4px;
   font-variant-numeric: tabular-nums;
+}
+.crit-title {
+  font-size: var(--t-body);
+  font-weight: 500;
+  letter-spacing: -0.015em;
+  line-height: 1.4;
+  color: var(--ink);
+  margin-bottom: 4px;
+}
+.crit-desc {
+  color: var(--mid);
 }
 
 .cta {
@@ -791,10 +764,6 @@ section { scroll-margin-top: calc(var(--nav-h) + 24px); }
 .cta:focus-visible {
   outline: 1px solid var(--ink);
   outline-offset: 4px;
-}
-.cta.is-copied {
-  color: var(--mid);
-  border-bottom-color: var(--mid);
 }
 
 /* ─── FOOTER ──────────────────── */
@@ -1111,12 +1080,8 @@ section { scroll-margin-top: calc(var(--nav-h) + 24px); }
     grid-template-columns: 1fr;
     gap: 0;
   }
-  .engage-col + .engage-col {
-    border-left: none;
-    border-top: 1px solid var(--rule);
-  }
-  .engage-col { padding: 40px 0 48px; }
-  .params { grid-template-columns: 1fr 1fr; }
+  .engage-col { padding: 0 0 40px; }
+  .engage-copy:last-of-type { margin-bottom: 0; }
 }
 
 @media (max-width: 520px) {
@@ -1144,7 +1109,6 @@ section { scroll-margin-top: calc(var(--nav-h) + 24px); }
   .drawer-gallery { grid-template-columns: 1fr; }
   .drawer { width: min(100vw, 572px); max-width: 100%; }
   .ticker-thumb { width: 168px; min-width: 168px; aspect-ratio: 16 / 9; height: auto; }
-  .params { grid-template-columns: 1fr; }
   .site-footer { flex-direction: column; align-items: flex-start; }
 }
 </style>
@@ -1235,61 +1199,28 @@ section { scroll-margin-top: calc(var(--nav-h) + 24px); }
     <p class="work-also"><strong>Also:</strong> Paradigm: presentation advisory and executive keynote support. ADPList: mentoring presentation designers and design leaders.</p>
   </section>
 
-  <!-- ENGAGE -->
-  <section class="wrap engage" id="engage">
+  <!-- ENGAGE · Advisory & Consulting
+       Previous Consulting + Full-time version: _archive/sections/engage-consulting-fulltime.html -->
+  <section class="wrap engage" id="engage" aria-labelledby="engage-hed">
     <div class="engage-intro">
-      <h2 class="engage-hed">Engage <em>with me</em></h2>
+      <h2 class="engage-hed" id="engage-hed">Engage <em>with me</em></h2>
     </div>
 
     <div class="engage-grid">
-      <!-- Consulting -->
       <div class="engage-col">
-        <p class="engage-kicker">Consulting</p>
-        <h3 class="engage-title">Limited retainers that build the system and hand it off.</h3>
-        <p class="engage-copy">One package: audit what exists, design the system, then hand it off so your team runs independently.</p>
-        <p class="engage-copy">The first conversation is a fit call, to understand where you are and what you need before scoping the work.</p>
-
-        <div class="params">
-          <div class="param">
-            <div class="param-k">Capacity</div>
-            <div class="param-v">Limited retainers</div>
-            <div class="param-n">A small number open at a time so the work gets real attention.</div>
-          </div>
-          <div class="param">
-            <div class="param-k">Engagement</div>
-            <div class="param-v">3-month retainer</div>
-            <div class="param-n">Audit → system → handoff. Project briefs considered when outcomes are clear.</div>
-          </div>
-          <div class="param">
-            <div class="param-k">Model</div>
-            <div class="param-v">Solo by default</div>
-            <div class="param-n">Trusted collaborators only when scope requires it.</div>
-          </div>
-          <div class="param">
-            <div class="param-k">Fit</div>
-            <div class="param-v">Brand / Comms</div>
-            <div class="param-n">Best alongside an internal brand or creative team. I integrate with how you already work.</div>
-          </div>
-        </div>
-
-        <a class="cta" id="book-fit-call" href="https://calendar.google.com/calendar/u/0/appointments/schedules/AcZssZ1QPL7Ls3JfJIjYietEE072ffw5oWlyEeR8yyA5mD2QQttjdPtLAf-LVg7AT2-X7_9Ka2p0SIR7" target="_blank" rel="noopener">Book a fit call<span aria-hidden="true">↗</span></a>
+        <p class="engage-kicker">Advisory &amp; Consulting</p>
+        <h3 class="engage-title">Helping teams build better presentation design capabilities.</h3>
+        <p class="engage-copy">I work with creative leaders and organizations to strengthen the people, processes, and systems behind exceptional presentation design.</p>
       </div>
 
-      <!-- Full-time -->
       <div class="engage-col">
-        <p class="engage-kicker">Full-time</p>
-        <h3 class="engage-title">Selectively open to roles that own and build the function.</h3>
-        <p class="engage-copy">I am always open to the next opportunity to build this function from 0 to 1 alongside today's best in-house brand teams.</p>
+        <ol class="crit-list" aria-label="Advisory offerings">
+          <li class="crit-item"><span class="n" aria-hidden="true">01</span><div><h4 class="crit-title">Creative guidance</h4><p class="crit-desc">Expert perspective on presentation design standards, visual quality, creative direction, and best practices.</p></div></li>
+          <li class="crit-item"><span class="n" aria-hidden="true">02</span><div><h4 class="crit-title">Team &amp; systems</h4><p class="crit-desc">Building and improving presentation design teams, workflows, tools, and scalable design systems.</p></div></li>
+          <li class="crit-item"><span class="n" aria-hidden="true">03</span><div><h4 class="crit-title">Talent advisory</h4><p class="crit-desc">Identifying, evaluating, and connecting organizations with exceptional presentation design talent.</p></div></li>
+        </ol>
 
-        <ul class="crit-list">
-          <li class="crit-item"><span class="n">01</span><span>Zero-to-one or one-to-two. Building or elevating the function.</span></li>
-          <li class="crit-item"><span class="n">02</span><span>Direct partnership with brand and creative leadership. High-stakes work needs proximity.</span></li>
-          <li class="crit-item"><span class="n">03</span><span>Scope that includes narrative strategy. Slides are the byproduct; the work is how ideas move.</span></li>
-          <li class="crit-item"><span class="n">04</span><span>Executive access at critical moments. Partnership when it counts.</span></li>
-          <li class="crit-item"><span class="n">05</span><span>Inflection: launch, rebrand, scale, or IPO, when this function matters most.</span></li>
-        </ul>
-
-        <button type="button" class="cta" id="copy-email" data-email="andrew@galudesign.com">Email about a role<span aria-hidden="true">↗</span></button>
+        <a class="cta" id="get-in-touch" href="https://calendar.google.com/calendar/u/0/appointments/schedules/AcZssZ1QPL7Ls3JfJIjYietEE072ffw5oWlyEeR8yyA5mD2QQttjdPtLAf-LVg7AT2-X7_9Ka2p0SIR7" target="_blank" rel="noopener">Get in touch<span aria-hidden="true">↗</span></a>
       </div>
     </div>
   </section>
@@ -1726,30 +1657,6 @@ renderTicker();
   if (track) {
     track.addEventListener('scroll', syncTickerNav, { passive: true });
     window.addEventListener('resize', syncTickerNav);
-  }
-
-  const copyBtn = document.getElementById('copy-email');
-  if (copyBtn) {
-    const email = copyBtn.getAttribute('data-email') || 'andrew@galudesign.com';
-    const label = copyBtn.innerHTML;
-    copyBtn.addEventListener('click', async () => {
-      try {
-        await navigator.clipboard.writeText(email);
-      } catch (err) {
-        const ta = document.createElement('textarea');
-        ta.value = email;
-        document.body.appendChild(ta);
-        ta.select();
-        document.execCommand('copy');
-        document.body.removeChild(ta);
-      }
-      copyBtn.classList.add('is-copied');
-      copyBtn.innerHTML = 'Email address copied<span aria-hidden="true">↗</span>';
-      window.setTimeout(() => {
-        copyBtn.classList.remove('is-copied');
-        copyBtn.innerHTML = label;
-      }, 1800);
-    });
   }
 })();
 
