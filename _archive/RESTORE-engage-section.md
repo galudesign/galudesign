@@ -37,7 +37,7 @@ Keeps every other change made since 2026-11-17.
    `.params { grid-template-columns: 1fr 1fr; }`; the `.engage-grid` rule is
    already there, so don't duplicate it). In `@media (max-width: 520px)`, add
    `.params { grid-template-columns: 1fr; }`.
-3. **HTML.** Replace the whole `<!-- ENGAGE ... -->` comment and
+3. **HTML.** Replace the whole `<!-- ENGAGE · Advisory & Consulting ... -->` comment and
    `<section class="wrap engage" id="engage" ...> ... </section>` with part 2.
 4. **JS.** In the final `(function () { ... })();` of the main `<script>`,
    paste part 3 (the `copy-email` handler) right after the ticker
